@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Казахстанский международный арбитраж «International»</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --primary-light: #334155;
+            --accent: #b45309;
+            --accent-hover: #92400e;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --success-bg: #f0fdf4;
+            --success-border: #bbf7d0;
+            --success-text: #166534;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-download {
+            background-color: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: var(--accent-hover);
+        }
+
+        p.intro {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            text-align: justify;
+        }
+
+        .grid-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-info {
+                grid-template-columns: 1fr;
+            }
+            .card-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        .info-block h4 {
+            color: var(--primary-light);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .info-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-block li {
+            margin-bottom: 6px;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .info-block li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Стили калькулятора */
+        .calc-wrapper {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+        }
+
+        .calc-wrapper h4 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .calc-result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            border-radius: 4px;
+            color: var(--success-text);
+            display: none;
+        }
+
+        .calc-result p {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .calc-result strong {
+            font-size: 18px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .requisites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .req-item {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .req-item span {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .req-item strong {
+            font-size: 14px;
+            color: var(--text-dark);
+            word-break: break-all;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            background: var(--white);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Казахстанский международный арбитраж «International»</h1>
+        <p>Самостоятельный, постоянно действующий арбитраж Республики Казахстан</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ДОКУМЕНТ 1: РЕГЛАМЕНТ -->
+        <div class="card">
+            <div class="card-title">
+                <span>О компании и компетенции</span>
+                <a href="reglament.docx" download class="btn-download">Скачать Регламент (.docx)</a>
+            </div>
+            <p class="intro">
+                Арбитраж осуществляет свою деятельность в соответствии с Законом РК «Об арбитраже», ГПК РК и иными законодательными актами. Главная цель — оперативное разрешение споров, обеспечение эффективной юридической защиты прав и законных интересов физических и юридических лиц на принципах законности, независимости и беспристрастности.
+            </p>
+            
+            <div class="grid-info">
+                <div class="info-block">
+                    <h4>Компетенция Арбитража:</h4>
+                    <ul>
+                        <li>Разрешение гражданско-правовых споров с участием резидентов и нерезидентов РК.</li>
+                        <li>Рассмотрение дел при наличии зафиксированного арбитражного соглашения.</li>
+                        <li>Самостоятельное определение вопросов наличия или отсутствия компетенции.</li>
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <h4>Ограничения подведомственности:</h4>
+                    <ul>
+                        <li>Не рассматриваются споры, затрагивающие интересы несовершеннолетних, недееспособных лиц.</li>
+                        <li>Исключены дела о реабилитации и банкротстве, а также споры в сфере естественных монополий.</li>
+                        <li>Требуется специальное согласие госорганов для споров с участием госкомпаний (50%+ акций у государства).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДОКУМЕНТ 2: ПОЛОЖЕНИЕ О СБОРАХ (С КАЛЬКУЛЯТОРОМ) -->
+        <div class="card">
+            <div class="card-title">
+                <span>Арбитражные сборы и расходы</span>
+                <a href="polozhenie_o_sborah.docx" download class="btn-download">Скачать Положение о сборах (.docx)</a>
+            </div>
+            <p class="intro">
+                Порядок исчисления, уплаты и распределения расходов регламентируется официальным Положением, являющимся неотъемлемой частью Регламента Казахстанского международного арбитража «International»[cite: 4].
+            </p>
+            
+            <div class="grid-info">
+                <div class="info-block">
+                    <h4>Состав арбитражных расходов:</h4>
+                    <ul>
+                        <li><strong>Регистрационный сбор</strong> — уплачивается авансом при подаче иска для покрытия расходов на организацию разбирательства[cite: 4]. Составляет фиксированную сумму <strong>80 000 тенге</strong>[cite: 4].</li>
+                        <li><strong>Арбитражный сбор</strong> — покрывает общие расходы на разбирательство дела (включая гонорары арбитрам, ведение делопроизводства)[cite: 4].</li>
+                        <li><strong>Дополнительные издержки</strong> — расходы на проведение экспертиз, услуги переводчиков, вызов свидетелей и видео-конференц-связь[cite: 4].</li>
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <h4>Важные правила и распределение:</h4>
+                    <ul>
+                        <li><strong>Распределение расходов:</strong> Расходы относятся на сторону, против которой состоялось решение арбитража (пропорционально размеру удовлетворенных требований)[cite: 4].</li>
+                        <li><strong>Расходы на представителей:</strong> Затраты на юристов или адвокатов по имущественным спорам возмещаются выигравшей стороне в размере <strong>до 10%</strong> от удовлетворенной части требований[cite: 4].</li>
+                        <li><strong>Момент оплаты:</strong> Платежи признаются уплаченными в день их зачисления на текущий счет банка Арбитража[cite: 4]. Комиссии банка возлагаются на плательщика[cite: 4].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СБОРА -->
+            <div class="calc-wrapper">
+                <h4>Онлайн-калькулятор арбитражного сбора (Имущественные споры)</h4>
+                <div class="form-group">
+                    <label for="claimAmount">Введите сумму (цену) иска в тенге (KZT):</label>
+                    <input type="number" id="claimAmount" placeholder="Например: 15000000" oninput="calculateFee()">
+                </div>
+                <div id="resultBlock" class="calc-result">
+                    <p>Регистрационный сбор (фиксированный): <strong id="regFee">80 000 KZT</strong></p>
+                    <p>Арбитражный сбор (по шкале Положения): <strong id="arbFee">0 KZT</strong></p>
+                    <p style="border-top: 1px solid #bbf7d0; margin-top: 10px; padding-top: 5px; font-weight: bold;">
+                        Итого к уплате авансом: <span style="font-size: 20px;" id="totalFee">0 KZT</span>
+                    </p>
+                    <p style="font-size: 11px; color: #475569; margin-top: 5px;">* Итоговые суммы не включают НДС и округляются до целых величин в соответствии со ст. 3 Положения[cite: 4].</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДОКУМЕНТ 3: РЕЕСТР АРБИТРОВ -->
+        <div class="card">
+            <div class="card-title">
+                <span>Реестр руководства и арбитров</span>
+                <a href="reestr.docx" download class="btn-download">Скачать Реестр (.docx)</a>
+            </div>
+            <p class="intro" style="margin-bottom: 20px;">
+                Все споры разрешаются независимыми арбитрами, имеющими необходимый стаж, высокую квалификацию и высшее юридическое образование. Данные состава суда:
+            </p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">№</th>
+                            <th style="width: 30%">Ф.И.О. / Должность</th>
+                            <th style="width: 30%">Образование</th>
+                            <th style="width: 35%">Опыт работы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Аллахвердиев Рамиз Адалат оглы</strong><br><small>Директор, Магистр</small></td>
+                            <td>Казахстанско-Американский свободный университет (Менеджмент, 2006 г.)</td>
+                            <td>Более 15 лет на руководящих должностях. Экс-Председатель СД АО «Товарная биржа «Астана».</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Ибраева Ардак Мекеновна</strong><br><small>Арбитр, Бакалавр</small></td>
+                            <td>ЧУ «Карагандинский университет КАЗПОТРЕБСОЮЗА» (Юриспруденция, 2006 г.)</td>
+                            <td>18 лет стажа. Опыт работы главным юристом в АО «Товарная биржа «Астана», ТОО «Биржа долгов», АО «Доступное жилье».</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>Мейрманова Айгуль Кайратовна</strong><br><small>Арбитр, Бакалавр</small></td>
+                            <td>НАО «Костанайский региональный университет им. А. Байтұрсынұлы» (Юриспруденция, 2010 г.)</td>
+                            <td>15 лет стажа. Экс-Председатель биржевого арбитража АО «Товарная биржа «Астана», работа в суде и коммерческих структурах.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>Әутай Елжас Серикұлы</strong><br><small>Арбитр, Бакалавр</small></td>
+                            <td>Кокшетауский университет им. Ш.Уалиханова (Юриспруденция, 2009 г.)</td>
+                            <td>17 лет стажа. Опыт работы в ТОО Клиринговый центр «Астана», АО «Товарная биржа "Астана» (Зам. Председателя по юр. вопросам).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ДОКУМЕНТ 4: РЕКВИЗИТЫ ДЛЯ СБОРОВ -->
+        <div class="card">
+            <div class="card-title">
+                <span>Официальные реквизиты</span>
+                <a href="rekvizity.docx" download class="btn-download">Скачать реквизиты (.docx)</a>
+            </div>
+            <p class="intro" style="margin-bottom: 20px;">
+                Используйте данные реквизиты для уплаты регистрационного сбора, арбитражного сбора или отправки официальной корреспонденции:
+            </p>
+            
+            <div class="requisites-grid">
+                <div class="req-item">
+                    <span>Наименование организации</span>
+                    <strong>Казахстанский международный арбитраж «International»</strong>
+                </div>
+                <div class="req-item">
+                    <span>БИН</span>
+                    <strong>190140021984</strong>
+                </div>
+                <div class="req-item">
+                    <span>Адрес регистрации</span>
+                    <strong>Казахстан, г. Астана, р-н Сарыарка, ул. Сүйінбай Ақын, д. 85</strong>
+                </div>
+                <div class="req-item">
+                    <span>Банк</span>
+                    <strong>АО «БанкЦентрКредит»</strong>
+                </div>
+                <div class="req-item">
+                    <span>БИК</span>
+                    <strong>KCJBKZKX</strong>
+                </div>
+                <div class="req-item">
+                    <span>ИИК (Счет)</span>
+                    <strong>KZ668562203155987882</strong>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Казахстанский международный арбитраж «International». Все права защищены.</p>
+        <p style="font-size: 11px; margin-top: 5px; color: #94a3b8;">Разработано на основе действующего регламента под руководством Директора Аллахвердиева Р.А.</p>
+    </footer>
+
+    <!-- СКРИПТ АВТОМАТИЧЕСКОГО РАСЧЕТА СБОРА -->
+    <script>
+        function calculateFee() {
+            const input = document.getElementById('claimAmount');
+            const amount = parseFloat(input.value);
+            const resultBlock = document.getElementById('resultBlock');
+            const arbFeeElement = document.getElementById('arbFee');
+            const totalFeeElement = document.getElementById('totalFee');
+            
+            if (isNaN(amount) || amount < 0) {
+                resultBlock.style.display = 'none';
+                return;
+            }
+
+            let arbFee = 0;
+            const regFee = 80000; // Регистрационный сбор 80 000 тенге
+
+            // Шкала расчета согласно Статье 3 Положения о сборах
+            if (amount <= 10000000) {
+                arbFee = 700000;
+            } else if (amount <= 30000000) {
+                arbFee = 700000 + (amount - 10000001) * 0.04;
+            } else if (amount <= 60000000) {
+                arbFee = 1400000 + (amount - 30000001) * 0.035;
+            } else if (amount <= 150000000) {
+                arbFee = 2000000 + (amount - 60000001) * 0.03;
+            } else if (amount <= 300000000) {
+                arbFee = 5000000 + (amount - 150000001) * 0.025;
+            } else if (amount <= 1000000000) {
+                arbFee = 15000000 + (amount - 30000001) * 0.02;
+            } else {
+                arbFee = 20000000 + (amount - 1000000001) * 0.01;
+            }
+
+            // Округление согласно Статье 3
+            arbFee = Math.round(arbFee);
+            let totalFee = regFee + arbFee;
+
+            // Форматирование вывода чисел с пробелами
+            arbFeeElement.innerText = arbFee.toLocaleString('ru-RU') + ' KZT';
+            totalFeeElement.innerText = totalFee.toLocaleString('ru-RU') + ' KZT';
+            
+            resultBlock.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
